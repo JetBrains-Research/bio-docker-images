@@ -16,8 +16,6 @@ RUN apt-get update && \
 # Install additional tools: vim
 RUN apt-get install -y vim
 
-# XXX: todo pathlib?  conda install --file environment.yaml --prefix PATH --name ENV
-
 # Install snakemake
 RUN conda update  --yes -n base -c defaults conda && \
     conda install --yes -c bioconda -c conda-forge snakemake pathlib pandas && \
@@ -50,15 +48,20 @@ RUN echo "export  PATH=/opt/conda/condabin:\$PATH" > /etc/bash.bashrc && \
 # see https://bugs.debian.org/793210
 # and https://github.com/docker-library/java/issues/46#issuecomment-119026586
 # P.S: our java comes from conda, seems the same issue
-RUN apt-get install -y --no-install-recommends libfontconfig1 && rm -rf /var/lib/apt/lists/*
+RUN apt-get install -y --no-install-recommends libfontconfig1
 
+# Install ps, htop
+RUN apt-get install -y procps htop
+
+# Cleanup
+RUN rm -rf /var/lib/apt/lists/*
 
 # Wrapper to pass custom source file before docker command execution, e.g. could be used
 # to pass some env variables or source other config files
 COPY cmd_wrapper.sh /usr/bin
 RUN chmod a+x /usr/bin/cmd_wrapper.sh
 
-ENTRYPOINT [ "/usr/bin/tini", "--",  "/usr/bin/cmd_wrapper.sh" ]
+ENTRYPOINT [ "/usr/bin/cmd_wrapper.sh" ]
 
 # E.g.: use w/o additional scripts to source:
 #CMD ["/bin/bash", "-l"]
