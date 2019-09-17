@@ -61,6 +61,7 @@ RUN rm -rf /var/lib/apt/lists/*
 COPY cmd_wrapper.sh /usr/bin
 RUN chmod a+x /usr/bin/cmd_wrapper.sh
 
+# Could be overriden, e.g. run: docker run -it --entrypoint /bin/bash biolabs/snakemake
 ENTRYPOINT [ "/usr/bin/cmd_wrapper.sh" ]
 
 # E.g.: use w/o additional scripts to source:
