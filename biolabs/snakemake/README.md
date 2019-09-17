@@ -46,7 +46,7 @@ docker images
 ```
 and use it to tag your image with `tag_name` tag, e.g. `snakemake_5.5.4`
 ```bash                                                         
-docker tag <image id, e.g. bb38976d03cf> `biolabs/snakemake:<tag_name>
+docker tag <image id, e.g. bb38976d03cf> biolabs/snakemake:<tag_name>
 ```
 
 Push
