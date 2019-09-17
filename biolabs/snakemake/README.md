@@ -1,7 +1,7 @@
 Docker Image with snakemake support
 =====================================
 
-This image provides conda+snakemake with some tweaks using to use it with LSF submission system. 
+This image provides miniconda3+snakemake with some tweaks using to use it with LSF submission system. 
 * Image based on [continuumio/miniconda3](https://hub.docker.com/r/continuumio/miniconda3/dockerfile), Debian linux 
 * latest snakemake installed 
 * cmd_wrapper.sh script, that allows customizing image environment before pipeline execution on a cluster with LSF and submission using docker
