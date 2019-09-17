@@ -59,4 +59,9 @@ COPY cmd_wrapper.sh /usr/bin
 RUN chmod a+x /usr/bin/cmd_wrapper.sh
 
 ENTRYPOINT [ "/usr/bin/tini", "--",  "/usr/bin/cmd_wrapper.sh" ]
-CMD ["use-source", "/bin/bash", "-l"]
+
+# E.g.: use w/o additional scripts to source:
+#CMD ["/bin/bash", "-l"]
+
+# E.g.: Specify 1 or multiple times 'use-source' with script to source, e.g.
+CMD ["use-source", "/opt/conda/.bashrc", "/bin/bash", "-l"]
