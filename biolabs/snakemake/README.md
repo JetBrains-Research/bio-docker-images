@@ -3,7 +3,8 @@ Docker Image with snakemake support
 
 This image provides miniconda3+snakemake with some tweaks using to use it with LSF submission system. 
 * Image based on [continuumio/miniconda3](https://hub.docker.com/r/continuumio/miniconda3/dockerfile), Debian linux 
-* latest snakemake installed 
+* latest snakemake installed
+* latest pandas, pathlib, cookiecutter packages, usefull for snakemake pipelines 
 * cmd_wrapper.sh script, that allows customizing image environment before pipeline execution on a cluster with LSF and submission using docker
 
 Run
@@ -29,6 +30,8 @@ You could override default `/usr/bin/cmd_wrapper.sh` entry point, e.g.:
 ```bash
 docker run -it --entrypoint /bin/bash biolabs/snakemake
 ```
+
+If your run docker with changed user id and home directory you will not be able to install packages into this container directly, but you could always create conda environment using custom environment directory in location where your user has write access, e.g home directory.
 
 Build
 -----

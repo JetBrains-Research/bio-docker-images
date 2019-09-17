@@ -17,8 +17,9 @@ RUN apt-get update && \
 RUN apt-get install -y vim
 
 # Install snakemake
+# TODO: use enviroment yaml instead of hardcoded packages list
 RUN conda update  --yes -n base -c defaults conda && \
-    conda install --yes -c bioconda -c conda-forge snakemake pathlib pandas && \
+    conda install --yes -c bioconda -c conda-forge snakemake pathlib pandas cookiecutter && \
     conda clean   --yes --all
 
 # Fix PATH and profile when running in LSF cluster
