@@ -5,26 +5,12 @@ FROM continuumio/miniconda3:latest
 #  $ docker push biolabs/snakemake
 MAINTAINER Roman Chernyatchik, JetBrains Research <roman.cheryatchik@jetbrains.com>
 
-
 # Resolve issue with undefined user name for LDAP users, e.g remove warnings
 #  group..
 #  username..
 RUN apt-get update && \
  apt-get upgrade -y && \
  apt-get install -y --no-install-recommends libnss-sss
-
-# Install additional tools: vim
-RUN apt-get install -y vim
-
-# Install snakemake
-# TODO: use enviroment yaml instead of hardcoded packages list
-RUN conda update  --yes -n base -c defaults conda && \
-    conda install --yes -c bioconda -c conda-forge snakemake pathlib pandas cookiecutter && \
-    conda clean   --yes --all
-
-# Fix PATH and profile when running in LSF cluster
-RUN echo "PATH=/opt/conda/condabin:/opt/conda/bin:\$PATH" > /opt/conda/.bashrc && \
-    cat /root/.bashrc >> /opt/conda/.bashrc
 
 # Solve locale issues when running bash.
 #   /bin/bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
@@ -36,6 +22,29 @@ RUN apt-get clean && apt-get update && apt-get install -y locales && \
     echo "LANG=en_US.UTF-8" > /etc/locale.conf  && \
     locale-gen en_US.UTF-8
 
+# JAVA 8 missing fonts workaround:
+# see https://bugs.debian.org/793210
+# and https://github.com/docker-library/java/issues/46#issuecomment-119026586
+# P.S: our java comes from conda, seems the same issue
+RUN apt-get install -y --no-install-recommends libfontconfig1
+
+# Install additional tools: ps, htop, vim
+RUN apt-get install -y procps htop vim
+
+# Cleanup
+RUN rm -rf /var/lib/apt/lists/*
+
+# Install snakemake and other packages
+COPY environement.yaml /root/environement.yaml
+RUN conda update  --yes -n base -c defaults conda && \
+    conda env update -n base --file /root/environement.yaml && \
+    conda clean   --yes --all
+RUN rm /root/environement.yaml
+
+# Fix PATH and profile when running in LSF cluster
+RUN echo "PATH=/opt/conda/condabin:/opt/conda/bin:\$PATH" > /opt/conda/.bashrc && \
+    cat /root/.bashrc >> /opt/conda/.bashrc
+
 # Simulate `conda init` and write config to global bash config. It is needed for docker containers
 # which are launched with custom user folder and thus lack of original ~/.bashrc settings
 RUN echo "export  PATH=/opt/conda/condabin:\$PATH" > /etc/bash.bashrc && \
@@ -44,18 +53,6 @@ RUN echo "export  PATH=/opt/conda/condabin:\$PATH" > /etc/bash.bashrc && \
     echo "eval \"\$__conda_setup\"" >> /etc/bash.bashrc && \
     echo "unset __conda_setup" >> /etc/bash.bashrc && \
     echo "# <<< conda initialize <<<" >> /etc/bash.bashrc
-
-# JAVA 8 missing fonts workaround:
-# see https://bugs.debian.org/793210
-# and https://github.com/docker-library/java/issues/46#issuecomment-119026586
-# P.S: our java comes from conda, seems the same issue
-RUN apt-get install -y --no-install-recommends libfontconfig1
-
-# Install ps, htop
-RUN apt-get install -y procps htop
-
-# Cleanup
-RUN rm -rf /var/lib/apt/lists/*
 
 # Wrapper to pass custom source file before docker command execution, e.g. could be used
 # to pass some env variables or source other config files
