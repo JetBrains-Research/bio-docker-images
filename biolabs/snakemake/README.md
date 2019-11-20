@@ -35,7 +35,7 @@ If your run docker with changed user id and home directory you will not be able 
 
 Build
 -----
-Change directory to `./docker/biolabs/washu` 
+Change directory to ` biolabs/snakemake` 
 
 ```bash
 docker build -t biolabs/snakemake .
@@ -47,7 +47,7 @@ Check latest `biolabs/snakemake` image ID
 ```bash
 docker images
 ```
-and use it to tag your image with `tag_name` tag, e.g. `snakemake_5.5.4`
+and use it to tag your image with `tag_name` tag, e.g. `5.6.0_conda4.7.12`
 ```bash                                                         
 docker tag <image id, e.g. bb38976d03cf> biolabs/snakemake:<tag_name>
 ```

@@ -28,17 +28,17 @@ RUN apt-get clean && apt-get update && apt-get install -y locales && \
 # P.S: our java comes from conda, seems the same issue
 RUN apt-get install -y --no-install-recommends libfontconfig1
 
-# Install additional tools: ps, htop, vim
-RUN apt-get install -y procps htop vim
+# Install additional tools: ps, htop, vim, mc
+RUN apt-get install -y procps htop vim mc nano tmux screen
 
 # Cleanup
 RUN rm -rf /var/lib/apt/lists/*
 
 # Install snakemake and other packages
 COPY environement.yaml /root/environement.yaml
-RUN conda update  --yes -n base -c defaults conda && \
-    conda env update -n base --file /root/environement.yaml && \
-    conda clean   --yes --all
+RUN conda update  --yes -n base -c defaults conda setuptools
+RUN conda env update -n base --file /root/environement.yaml
+RUN conda clean   --yes --all
 RUN rm /root/environement.yaml
 
 # Fix PATH and profile when running in LSF cluster
