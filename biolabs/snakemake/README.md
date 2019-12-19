@@ -63,3 +63,19 @@ Then you just push current image
 ```bash
 docker push biolabs/snakemake
 ```
+
+Prepare next release
+---
+[DockerHub](https://hub.docker.com/repository/docker/biolabs/snakemake/builds) automatically triggers builds of two types:
+* On each master commit, `biolabs/snakemake:latest`
+* On tag push. Tag should match pattern `/^snakemake([0-9.]+)_conda([0-9.]+)_v[0-9]+$/`, e.g. for `5.8.2_conda4.8.0_v1` `biolabs/snakemake:5.8.2_conda4.8.0`
+
+DockerHub is able to build image only from new tags, you cannot re-trigger build for an already existing tag. Although regexp doesn't work as expected, so we use `_vNNN` suffix which will be trimmed from docker build tag.
+
+So you need to:
+* Build image locally, ensure that image works ok
+* Commit and Push changes to GitHub 
+* Tag build, e.g. `git tag -a snakemake5.8.2_conda4.8.0_v1 -m "Snakemake 5.8.2_conda4.8.0"`
+* Push tags, e.g. `git push --tags`
+* Ensure that build was triggered and finished at [DockerHub](https://hub.docker.com/repository/docker/biolabs/snakemake/builds) 
+* If you need to update image for the same tag, then make & push commits, tag them with increased latest version component, e.g. `git tag -a snakemake5.8.2_conda4.8.0_v2 -m "Snakemake 5.8.2_conda4.8.0 fixed"` and push tags.
