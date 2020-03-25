@@ -28,8 +28,11 @@ RUN apt-get clean && apt-get update && apt-get install -y locales && \
 # P.S: our java comes from conda, seems the same issue
 RUN apt-get install -y --no-install-recommends libfontconfig1
 
+#  GNU/GCC compiler and related tools (such as make, debugger, man pages) collection
+RUN apt-get install -y build-essential
+
 # Install additional tools: ps, htop, vim, mc
-RUN apt-get install -y procps htop vim mc nano tmux screen
+RUN apt-get install -y procps htop vim mc nano tmux screen tree
 
 # Cleanup
 RUN rm -rf /var/lib/apt/lists/*
@@ -64,6 +67,8 @@ ENTRYPOINT [ "/usr/bin/cmd_wrapper.sh" ]
 
 # E.g.: use w/o additional scripts to source:
 #CMD ["/bin/bash", "-l"]
+
+# seems enough is 'use-source  /etc/bash.bashrc'
 
 # E.g.: Specify 1 or multiple times 'use-source' with script to source, e.g.
 CMD ["use-source", "/opt/conda/.bashrc", "/bin/bash", "-l"]
