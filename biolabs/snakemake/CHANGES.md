@@ -1,3 +1,10 @@
+Version: snakemake5.10.0_conda4.8.3_v2
+---
+Released on 29 March 2020
+
+Features:
+* Debian utils packages (`bsdmainutils`) added, e.g. includes `column`
+
 Version: snakemake5.10.0_conda4.8.3_v1
 ---
  

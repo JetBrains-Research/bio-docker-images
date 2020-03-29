@@ -31,6 +31,9 @@ RUN apt-get install -y --no-install-recommends libfontconfig1
 #  GNU/GCC compiler and related tools (such as make, debugger, man pages) collection
 RUN apt-get install -y build-essential autoconf automake
 
+# collection of debian utility tools, e.g. 'column', etc
+RUN apt-get install -y bsdmainutils
+
 # Install additional tools: ps, htop, vim, mc
 RUN apt-get install -y procps htop vim mc nano tmux screen tree
 
