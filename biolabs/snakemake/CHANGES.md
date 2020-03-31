@@ -1,3 +1,11 @@
+Version: snakemake5.13.0_conda4.8.3_v2
+---
+Released on 31 March 2020
+
+Features
+* Python 3.8.2
+* Python packages: cookiecutter 1.7.0
+
 Version: snakemake5.13.0_conda4.8.3_v1
 ---
 Released on 31 March 2020
