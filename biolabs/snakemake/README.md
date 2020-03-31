@@ -41,17 +41,6 @@ Change directory to ` biolabs/snakemake`
 docker build -t biolabs/snakemake .
 ```
 
-Tag
----
-Check latest `biolabs/snakemake` image ID  
-```bash
-docker images
-```
-and use it to tag your image with `tag_name` tag, e.g. `5.6.0_conda4.7.12`
-```bash                                                         
-docker tag <image id, e.g. bb38976d03cf> biolabs/snakemake:<tag_name>
-```
-
 Push
 ----
 Before push you have to login to docker hub first.

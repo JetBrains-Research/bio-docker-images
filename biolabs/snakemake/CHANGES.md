@@ -1,3 +1,11 @@
+Version: snakemake5.13.0_conda4.8.3_v1
+---
+Released on 31 March 2020
+
+Features
+* Snakemake updated to 5.13.0
+* Python packages: ipython
+
 Version: snakemake5.10.0_conda4.8.3_v2
 ---
 Released on 29 March 2020
