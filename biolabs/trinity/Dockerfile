@@ -1,4 +1,4 @@
-FROM trinityrnaseq/trinityrnaseq
+FROM trinityrnaseq/trinityrnaseq:2.10.0
 
 MAINTAINER Roman Chernyatchik, JetBrains Research <roman.cheryatchik@jetbrains.com>
 
