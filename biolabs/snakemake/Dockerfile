@@ -37,12 +37,15 @@ RUN apt-get install -y bsdmainutils
 # Install additional tools: ps, htop, vim, mc
 RUN apt-get install -y procps htop vim mc nano tmux screen tree
 
+RUN apt-get install -y locate
+
 # --------------------------------------------------------
 # Additional tools / libs for bioinformatics:
 #
 # The GNU Scientific Library
 RUN apt-get install -y libgsl-dev
 
+#-----------
 # Install methpipe-3.4.3
 RUN mkdir -p /opt && cd /opt && \
    wget http://smithlabresearch.org/downloads/methpipe-3.4.3.tar.bz2 && \
@@ -61,6 +64,7 @@ RUN cd /usr/bin && \
     ./configure && make && make install && \
     rm -rf /usr/bin/htslib-1.10.2
 
+#-----------
 # Installing methpipe-4.0.0
 # smithlab_cpp lib:
 RUN mkdir -p /opt && cd /opt && \
@@ -78,10 +82,32 @@ RUN mkdir -p /opt && cd /opt && \
    ../configure --prefix="$(dirname $(pwd))"  && make &&  make install && \
    rm -rf /opt/methpipe-4.0.0.tar.gz
 
+# ---------
+# Install xvfb & Co for plot.ly (orca)
+# RUN apt-get install -y software-properties-common
+RUN apt-get install -y xvfb libgtk2.0-0 libxtst-dev libxss1 gconf-gsettings-backend libnss3 libasound2
+
+#-----------
+# singularity
+RUN apt-get install -y dh-autoreconf libarchive-dev squashfs-tools
+
+WORKDIR /opt
+ENV SING_VER=2.5.2
+RUN wget https://github.com/singularityware/singularity/releases/download/$SING_VER/singularity-$SING_VER.tar.gz && \
+   tar xvf singularity-$SING_VER.tar.gz  && \
+   cd singularity-$SING_VER && \
+   ./configure --prefix=/usr/local --sysconfdir=/etc && \
+   make &&  make install
+
 # --------------------------------------------------------
+# --------------------------------------------------------
+# --------------------------------------------------------
+
 # Cleanup apt caches
 RUN rm -rf /var/lib/apt/lists/*
 
+# --------------------------------------------------------
+# --------------------------------------------------------
 # --------------------------------------------------------
 
 # Install snakemake and other packages
