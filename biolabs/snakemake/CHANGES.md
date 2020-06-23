@@ -4,7 +4,7 @@ Released on 23 June 2020
 
 Features
 * Python 3.7.3
-* Snakemake updated to 5.13.0
+* Snakemake updated to 5.19.3
 
 Version: snakemake5.13.0_conda4.8.3_v2
 ---
