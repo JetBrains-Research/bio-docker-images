@@ -85,11 +85,11 @@ RUN mkdir -p /opt && cd /opt && \
 # ---------
 # Install xvfb & Co for plot.ly (orca)
 # RUN apt-get install -y software-properties-common
-RUN apt-get install -y xvfb libgtk2.0-0 libxtst-dev libxss1 gconf-gsettings-backend libnss3 libasound2
+RUN apt-get update && apt-get install -y xvfb libgtk2.0-0 libxtst-dev libxss1 gconf-gsettings-backend libnss3 libasound2
 
 #-----------
 # singularity
-RUN apt-get install -y dh-autoreconf libarchive-dev squashfs-tools
+RUN apt-get update && apt-get install -y dh-autoreconf libarchive-dev squashfs-tools
 
 WORKDIR /opt
 ENV SING_VER=2.5.2
