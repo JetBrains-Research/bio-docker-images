@@ -58,11 +58,11 @@ RUN mkdir -p /opt && cd /opt && \
 RUN apt-get install -y perl zlib1g-dev libbz2-dev liblzma-dev libcurl4-gnutls-dev libssl-dev
 #RUN apt-get install -ay libbz2-dev zlib1g-dev libncurses5-dev libncursesw5-dev liblzma-dev
 RUN cd /usr/bin && \
-    wget https://github.com/samtools/htslib/releases/download/1.11.0/htslib-1.11.0.tar.bz2 && \
-    tar -vxjf htslib-1.11.0.tar.bz2 && cd /usr/bin/htslib-1.11.0 && \
+    wget https://github.com/samtools/htslib/releases/download/1.11/htslib-1.11.tar.bz2 && \
+    tar -vxjf htslib-1.11.tar.bz2 && cd /usr/bin/htslib-1.11 && \
     autoreconf && \
     ./configure && make && make install && \
-    rm -rf /usr/bin/htslib-1.11.0
+    rm -rf /usr/bin/htslib-1.11
 
 #-----------
 # Installing methpipe-4.1.1
