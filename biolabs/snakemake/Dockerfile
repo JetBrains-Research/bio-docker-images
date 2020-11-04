@@ -76,7 +76,7 @@ RUN mkdir -p /opt && cd /opt && \
 
 # methpipe
 RUN mkdir -p /opt && cd /opt && \
-  wget https://github.com/smithlabcode/methpipe/releases/download/4.1.1/methpipe-4.1.1.tar.gz && \
+   wget https://github.com/smithlabcode/methpipe/releases/download/v4.1.1/methpipe-4.1.1.tar.gz && \
    tar -zxvf methpipe-4.1.1.tar.gz && \
    cd methpipe-4.1.1 && mkdir -p build && cd build && \
    ../configure --prefix="$(dirname $(pwd))"  && make &&  make install && \
