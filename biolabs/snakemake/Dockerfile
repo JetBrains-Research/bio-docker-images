@@ -58,14 +58,14 @@ RUN mkdir -p /opt && cd /opt && \
 RUN apt-get install -y perl zlib1g-dev libbz2-dev liblzma-dev libcurl4-gnutls-dev libssl-dev
 #RUN apt-get install -ay libbz2-dev zlib1g-dev libncurses5-dev libncursesw5-dev liblzma-dev
 RUN cd /usr/bin && \
-    wget https://github.com/samtools/htslib/releases/download/1.10.2/htslib-1.10.2.tar.bz2 && \
-    tar -vxjf htslib-1.10.2.tar.bz2 && cd /usr/bin/htslib-1.10.2 && \
+    wget https://github.com/samtools/htslib/releases/download/1.11.0/htslib-1.11.0.tar.bz2 && \
+    tar -vxjf htslib-1.11.0.tar.bz2 && cd /usr/bin/htslib-1.11.0 && \
     autoreconf && \
     ./configure && make && make install && \
-    rm -rf /usr/bin/htslib-1.10.2
+    rm -rf /usr/bin/htslib-1.11.0
 
 #-----------
-# Installing methpipe-4.0.0
+# Installing methpipe-4.1.1
 # smithlab_cpp lib:
 RUN mkdir -p /opt && cd /opt && \
    wget https://github.com/smithlabcode/smithlab_cpp/releases/download/1.0.2/libsmithlab_cpp-1.0.2.tar.gz && \
@@ -76,11 +76,11 @@ RUN mkdir -p /opt && cd /opt && \
 
 # methpipe
 RUN mkdir -p /opt && cd /opt && \
-  wget https://github.com/smithlabcode/methpipe/releases/download/4.0.0/methpipe-4.0.0.tar.gz && \
-   tar -zxvf methpipe-4.0.0.tar.gz && \
-   cd methpipe-4.0.0 && mkdir -p build && cd build && \
+  wget https://github.com/smithlabcode/methpipe/releases/download/4.1.1/methpipe-4.1.1.tar.gz && \
+   tar -zxvf methpipe-4.1.1.tar.gz && \
+   cd methpipe-4.1.1 && mkdir -p build && cd build && \
    ../configure --prefix="$(dirname $(pwd))"  && make &&  make install && \
-   rm -rf /opt/methpipe-4.0.0.tar.gz
+   rm -rf /opt/methpipe-4.1.1.tar.gz
 
 # ---------
 # Install xvfb & Co for plot.ly (orca)
