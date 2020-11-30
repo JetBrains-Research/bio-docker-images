@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3:latest
+FROM continuumio/miniconda3:4.7.12
 
 #  $ docker build . -t biolabs/snakemake
 #  $ docker run --rm -it biolabs/snakemake /bin/bash
@@ -26,24 +26,24 @@ RUN apt-get clean && apt-get update && apt-get install -y locales && \
 # see https://bugs.debian.org/793210
 # and https://github.com/docker-library/java/issues/46#issuecomment-119026586
 # P.S: our java comes from conda, seems the same issue
-RUN apt-get install -y --no-install-recommends libfontconfig1
+RUN apt-get update && apt-get install -y --no-install-recommends libfontconfig1
 
 #  GNU/GCC compiler and related tools (such as make, debugger, man pages) collection
-RUN apt-get install -y build-essential autoconf automake
+RUN apt-get update && apt-get install -y build-essential autoconf automake
 
 # collection of debian utility tools, e.g. 'column', etc
-RUN apt-get install -y bsdmainutils
+RUN apt-get update && apt-get install -y bsdmainutils
 
 # Install additional tools: ps, htop, vim, mc
-RUN apt-get install -y procps htop vim mc nano tmux screen tree
+RUN apt-get update && apt-get install -y procps htop vim mc nano tmux screen tree
 
-RUN apt-get install -y locate
+RUN apt-get update && apt-get install -y locate
 
 # --------------------------------------------------------
 # Additional tools / libs for bioinformatics:
 #
 # The GNU Scientific Library
-RUN apt-get install -y libgsl-dev
+RUN apt-get update && apt-get install -y libgsl-dev
 
 #-----------
 # Install methpipe-3.4.3
@@ -55,8 +55,8 @@ RUN mkdir -p /opt && cd /opt && \
    rm -rf /opt/methpipe-3.4.3.tar.bz2
 
 # Install HTSlib: https://github.com/samtools/htslib
-RUN apt-get install -y perl zlib1g-dev libbz2-dev liblzma-dev libcurl4-gnutls-dev libssl-dev
-#RUN apt-get install -ay libbz2-dev zlib1g-dev libncurses5-dev libncursesw5-dev liblzma-dev
+RUN apt-get update && apt-get install -y perl zlib1g-dev libbz2-dev liblzma-dev libcurl4-gnutls-dev libssl-dev
+#RUN apt-get update && apt-get install -ay libbz2-dev zlib1g-dev libncurses5-dev libncursesw5-dev liblzma-dev
 RUN cd /usr/bin && \
     wget https://github.com/samtools/htslib/releases/download/1.11/htslib-1.11.tar.bz2 && \
     tar -vxjf htslib-1.11.tar.bz2 && cd /usr/bin/htslib-1.11 && \
@@ -77,7 +77,7 @@ RUN mkdir -p /opt && cd /opt && \
 # methpipe
 RUN mkdir -p /opt && cd /opt && \
    wget https://github.com/smithlabcode/methpipe/releases/download/v4.1.1/methpipe-4.1.1.tar.gz && \
-   tar -zxvf methpipe-4.1.1.tar.gz && \
+   tar -zxvf methpipe-4.1.1.tar.gz --no-same-owner && \
    cd methpipe-4.1.1 && mkdir -p build && cd build && \
    ../configure --prefix="$(dirname $(pwd))"  && make &&  make install && \
    rm -rf /opt/methpipe-4.1.1.tar.gz
@@ -111,11 +111,11 @@ RUN rm -rf /var/lib/apt/lists/*
 # --------------------------------------------------------
 
 # Install snakemake and other packages
-COPY environement.yaml /root/environement.yaml
+COPY environment.yaml /root/environment.yaml
 RUN conda update  --yes -n base -c defaults conda setuptools
-RUN conda env update -n base --file /root/environement.yaml
+RUN conda env update -n base --file /root/environment.yaml
 RUN conda clean   --yes --all
-RUN rm /root/environement.yaml
+RUN rm /root/environment.yaml
 
 # Fix PATH and profile when running in LSF cluster
 RUN echo "PATH=/opt/conda/condabin:/opt/conda/bin:\$PATH" > /opt/conda/.bashrc && \
