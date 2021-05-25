@@ -1,3 +1,17 @@
+Version: snakemake5.32.2_conda4.10.1_py37_v1
+---
+Released on 25 May 2021
+
+Features
+  - conda 4.10.1
+  - Packages updated:
+      - python=3.7.10
+      - cookiecutter=1.7.3
+      - pathlib=1.0.1
+      - snakemake=5.32.2
+      - pandas=1.2.4
+      - ipython=7.23.1
+
 Version: snakemake5.19.3_conda4.8.3_py37_v1
 ---
 Released on 23 June 2020
