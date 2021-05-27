@@ -1,0 +1,11 @@
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - python=3.8
+  - snakemake=6.4
+  - mamba
+  - cookiecutter=1
+  - pathlib=1
+  - pandas=1
+  - ipython=7
