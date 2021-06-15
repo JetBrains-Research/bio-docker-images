@@ -88,18 +88,6 @@ RUN mkdir -p /opt && cd /opt && \
 # RUN apt-get install -y software-properties-common
 RUN apt-get update && apt-get install -y xvfb libgtk2.0-0 libxtst-dev libxss1 gconf-gsettings-backend libnss3 libasound2
 
-#-----------
-# singularity
-RUN apt-get update && apt-get install -y dh-autoreconf libarchive-dev squashfs-tools
-
-WORKDIR /opt
-ENV SING_VER=2.5.2
-RUN wget https://github.com/singularityware/singularity/releases/download/$SING_VER/singularity-$SING_VER.tar.gz && \
-   tar xvf singularity-$SING_VER.tar.gz  && \
-   cd singularity-$SING_VER && \
-   ./configure --prefix=/usr/local --sysconfdir=/etc && \
-   make &&  make install
-
 # --------------------------------------------------------
 # --------------------------------------------------------
 # --------------------------------------------------------
