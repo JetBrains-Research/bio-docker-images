@@ -1,3 +1,11 @@
+Version: snakemake6.4.1_conda4.10.1_py38_v1
+---
+Released on 15 June 2021
+Features:
+    - Packages updated:
+        - snakemake = 6.4.1
+    - Snakemake workaround, see https://github.com/snakemake/snakemake/issues/1028
+
 Version: snakemake6.4.0_conda4.10.1_py38_v1
 ---
 Released on 28 May 2021
