@@ -1,4 +1,5 @@
-FROM continuumio/miniconda3:4.7.12
+# https://hub.docker.com/r/continuumio/miniconda3
+FROM continuumio/miniconda3:4.9.2
 
 #  $ docker build . -t biolabs/snakemake
 #  $ docker run --rm -it biolabs/snakemake /bin/bash
