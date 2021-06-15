@@ -106,6 +106,11 @@ RUN conda env update -n base --file /root/environment.yaml
 RUN conda clean   --yes --all
 RUN rm /root/environment.yaml
 
+# Fix Snakemake
+# TODO: fix for https://github.com/snakemake/snakemake/issues/1028
+COPY snakemake_io_4.6.1.py /opt/conda/lib/python3.8/site-packages/snakemake/io.py
+
+
 # Fix PATH and profile when running in LSF cluster
 RUN echo "PATH=/opt/conda/condabin:/opt/conda/bin:\$PATH" > /opt/conda/.bashrc && \
     cat /root/.bashrc >> /opt/conda/.bashrc

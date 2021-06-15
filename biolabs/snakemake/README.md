@@ -7,6 +7,15 @@ This image provides miniconda3+snakemake with some tweaks using to use it with L
 * latest pandas, pathlib, cookiecutter packages, usefull for snakemake pipelines 
 * cmd_wrapper.sh script, that allows customizing image environment before pipeline execution on a cluster with LSF and submission using docker
 
+
+Build
+-----
+Change directory to ` biolabs/snakemake` 
+
+```bash
+docker build -t biolabs/snakemake .
+```
+
 Run
 -----
 Use with LSF docker submission application. To run container locally, use one of examples::
@@ -32,14 +41,6 @@ docker run -it --entrypoint /bin/bash biolabs/snakemake
 ```
 
 If your run docker with changed user id and home directory you will not be able to install packages into this container directly, but you could always create conda environment using custom environment directory in location where your user has write access, e.g home directory.
-
-Build
------
-Change directory to ` biolabs/snakemake` 
-
-```bash
-docker build -t biolabs/snakemake .
-```
 
 Push
 ----
