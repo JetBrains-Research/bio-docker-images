@@ -1,4 +1,11 @@
-Version: snakemake7.8.1_conda4.11_py38_v1
+Version: snakemake7.8.1_conda4.10.3_py38_v1
+---
+Released on 1 June 2022
+
+Features:
+- Debian downgraded due to network disks mounting issue in RIS cluster
+
+Version: snakemake7.8.1_conda4.11_py38_v2
 ---
 Released on 1 June 2022
 Features:

@@ -1,6 +1,7 @@
 # https://hub.docker.com/r/continuumio/miniconda3
 # specify version, or use ':latest'
-FROM continuumio/miniconda3:4.11.0
+# (see docker file - https://hub.docker.com/r/continuumio/miniconda3/dockerfile)
+FROM continuumio/miniconda3:4.10.3
 
 #  $ docker build . -t biolabs/snakemake
 #  $ docker run --rm -it biolabs/snakemake /bin/bash
