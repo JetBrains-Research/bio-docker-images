@@ -3,9 +3,8 @@ channels:
   - conda-forge
 dependencies:
   - python=3.8.10
-  - snakemake=6.4.1  # do not forget to update workaround for #1028
-  - mamba=0.13.0
+  - snakemake=7.8.1
   - cookiecutter=1.7.3
   - pathlib=1.0.1
-  - pandas=1.2.4
-  - ipython=7.23.1
+  - pandas=1.4.2
+  - ipython=8.3.0

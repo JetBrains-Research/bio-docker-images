@@ -1,5 +1,6 @@
 # https://hub.docker.com/r/continuumio/miniconda3
-FROM continuumio/miniconda3:4.9.2
+# specify version, or use ':latest'
+FROM continuumio/miniconda3:4.11.0
 
 #  $ docker build . -t biolabs/snakemake
 #  $ docker run --rm -it biolabs/snakemake /bin/bash
@@ -37,6 +38,9 @@ RUN apt-get update && apt-get install -y bsdmainutils
 
 # Install additional tools: ps, htop, vim, mc
 RUN apt-get update && apt-get install -y procps htop vim mc nano tmux screen tree
+
+# Install additional dev tools: git
+RUN apt-get update && apt-get install -y git
 
 RUN apt-get update && apt-get install -y locate
 
@@ -98,17 +102,15 @@ RUN rm -rf /var/lib/apt/lists/*
 # --------------------------------------------------------
 # --------------------------------------------------------
 # --------------------------------------------------------
+# Install mamba
+RUN conda install mamba -n base -c conda-forge
 
 # Install snakemake and other packages
 COPY environment.yaml /root/environment.yaml
-RUN conda update  --yes -n base -c defaults conda setuptools
-RUN conda env update -n base --file /root/environment.yaml
-RUN conda clean   --yes --all
+RUN mamba update  --yes -n base -c defaults conda setuptools
+RUN mamba env update -n base --file /root/environment.yaml
+RUN mamba clean   --yes --all
 RUN rm /root/environment.yaml
-
-# Fix Snakemake
-# TODO: fix for https://github.com/snakemake/snakemake/issues/1028
-COPY snakemake_io_4.6.1.py /opt/conda/lib/python3.8/site-packages/snakemake/io.py
 
 
 # Fix PATH and profile when running in LSF cluster
@@ -139,3 +141,5 @@ ENTRYPOINT [ "/usr/bin/cmd_wrapper.sh" ]
 
 # E.g.: Specify 1 or multiple times 'use-source' with script to source, e.g.
 CMD ["use-source", "/opt/conda/.bashrc", "/bin/bash", "-l"]
+
+# todo: update git?
