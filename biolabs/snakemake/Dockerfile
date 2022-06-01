@@ -37,7 +37,7 @@ RUN apt-get update && apt-get install -y build-essential autoconf automake
 RUN apt-get update && apt-get install -y bsdmainutils
 
 # Install additional tools: ps, htop, vim, mc
-RUN apt-get update && apt-get install -y procps htop vim mc nano tmux screen tree
+RUN apt-get update && apt-get install -y procps htop vim mc nano tmux screen tree less
 
 # Install additional dev tools: git
 RUN apt-get update && apt-get install -y git

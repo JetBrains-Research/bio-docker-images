@@ -2,12 +2,12 @@ Version: snakemake7.8.1_conda4.11_py38_v1
 ---
 Released on 1 June 2022
 Features:
-    - Packages updated:
-        - snakemake = 7.8.1
+    - Conda packages updated:
+        - snakemake=7.8.1
         - pandas=1.4.2
         - ipython=8.3.0
     - Use mamba in dockerfile
-    - Git updated
+    - Packages installed: less, git
 
 Version: snakemake6.4.1_conda4.10.1_py38_v1
 ---

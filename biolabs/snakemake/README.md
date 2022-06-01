@@ -42,6 +42,14 @@ docker run -it --entrypoint /bin/bash biolabs/snakemake
 
 If your run docker with changed user id and home directory you will not be able to install packages into this container directly, but you could always create conda environment using custom environment directory in location where your user has write access, e.g home directory.
 
+Tag
+----
+Tag relese:
+```shell
+# docker images
+docker tag biolabs/snakemake biolabs/snakemake:7.8.1_conda4.11_py38
+```
+
 Push
 ----
 Before push you have to login to docker hub first.
@@ -52,6 +60,7 @@ docker login -u biolabs
 Then you just push current image 
 ```bash
 docker push biolabs/snakemake
+docker push  biolabs/snakemake:7.8.1_conda4.11_py38
 ```
 
 Prepare next release
