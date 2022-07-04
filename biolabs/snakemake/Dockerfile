@@ -104,13 +104,13 @@ RUN rm -rf /var/lib/apt/lists/*
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Install mamba
-RUN conda install mamba -n base -c conda-forge
+RUN conda install "mamba>=0.24" -n base -c conda-forge
 
 # Install snakemake and other packages
 COPY environment.yaml /root/environment.yaml
 RUN mamba update  --yes -n base -c defaults conda setuptools
 RUN mamba env update -n base --file /root/environment.yaml
-RUN mamba clean   --yes --all
+RUN mamba clean --yes --all
 RUN rm /root/environment.yaml
 
 
