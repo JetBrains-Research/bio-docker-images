@@ -7,10 +7,17 @@ This image provides miniconda3+snakemake with some tweaks using to use it with L
 * latest pandas, pathlib, cookiecutter packages, usefull for snakemake pipelines 
 * cmd_wrapper.sh script, that allows customizing image environment before pipeline execution on a cluster with LSF and submission using docker
 
+Configure
+---
+Update `environment.yaml`
+```bash
+cd biolabs/snakemake
+snakedeploy update-conda-envs environment.yaml 
+```
 
 Build
 -----
-Change directory to ` biolabs/snakemake` 
+Change directory to `biolabs/snakemake` 
 
 ```bash
 docker build -t biolabs/snakemake .
@@ -68,7 +75,7 @@ docker build -t biolabs/snakemake .
 docker tag biolabs/snakemake biolabs/snakemake:7.8.5_conda4.12.0_py38
 docker login -u biolabs
 docker push biolabs/snakemake
-docker push  biolabs/snakemake:7.8.5_conda4.12.0_py38
+docker push biolabs/snakemake:7.8.5_conda4.12.0_py38
 ```
 
 Tag Docker Image

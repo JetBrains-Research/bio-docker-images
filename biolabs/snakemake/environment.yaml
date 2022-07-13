@@ -1,10 +1,11 @@
 channels:
-  - bioconda
-  - conda-forge
+- bioconda
+- conda-forge
 dependencies:
-  - python=3.8
-  - snakemake=7.8.5
-  - cookiecutter=1.7.3
-  - pathlib=1.0.1
-  - pandas=1.4
-  - ipython=8
+- python =3.10.5
+- snakemake =7.8.5
+- snakedeploy =0.5.0
+- cookiecutter =2.1.1
+- pathlib =1.0.1
+- pandas =1.4.3
+- ipython =8.4.0
