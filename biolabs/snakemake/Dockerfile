@@ -1,6 +1,7 @@
 # https://hub.docker.com/r/continuumio/miniconda3
 # specify version, or use ':latest'
 # (see docker file - https://hub.docker.com/r/continuumio/miniconda3/dockerfile)
+# * continuumio/miniconda3:4.10.3 ~ python 3.9.5, conda 4.10.3
 FROM continuumio/miniconda3:4.10.3
 
 #  $ docker build . -t biolabs/snakemake
@@ -93,6 +94,9 @@ RUN mkdir -p /opt && cd /opt && \
 RUN apt-get update && apt-get install -y xvfb libgtk2.0-0 libxtst-dev libxss1 gconf-gsettings-backend libnss3 libasound2
 
 # --------------------------------------------------------
+# Install graphviz to get 'dot' command used for snakemake DAG plots:
+RUN apt-get update && apt-get install -y graphviz
+
 # --------------------------------------------------------
 # --------------------------------------------------------
 
