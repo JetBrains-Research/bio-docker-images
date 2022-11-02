@@ -64,29 +64,36 @@ RUN mkdir -p /opt && cd /opt && \
 # Install HTSlib: https://github.com/samtools/htslib
 RUN apt-get update && apt-get install -y autoconf automake make gcc perl zlib1g-dev libbz2-dev liblzma-dev libcurl4-gnutls-dev libssl-dev
 RUN cd /usr/bin && \
-    wget https://github.com/samtools/htslib/releases/download/1.15.1/htslib-1.15.1.tar.bz2 && \
-    tar -vxjf htslib-1.15.1.tar.bz2 && cd /usr/bin/htslib-1.15.1 && \
+    wget https://github.com/samtools/htslib/releases/download/1.16/htslib-1.16.tar.bz2 && \
+    tar -vxjf htslib-1.16.tar.bz2 && cd /usr/bin/htslib-1.16 && \
     autoreconf -i && \
     ./configure && make && make install && \
-    rm -rf /usr/bin/htslib-1.15.1
+    rm -rf /usr/bin/htslib-1.16
 
 #-----------
 # Installing methpipe-5.0.1
-# smithlab_cpp lib:
-#RUN mkdir -p /opt && cd /opt && \
-#   wget https://github.com/smithlabcode/smithlab_cpp/releases/download/1.0.2/libsmithlab_cpp-1.0.2.tar.gz && \
-#   tar -xvf libsmithlab_cpp-1.0.2.tar.gz && \
-#   cd libsmithlab_cpp-1.0.2 && \
-#   ./configure --enable-hts && make && make install && \
-#   rm -rf /opt/libsmithlab_cpp-1.0.2*
-
-# methpipe
 RUN mkdir -p /opt && cd /opt && \
    wget https://github.com/smithlabcode/methpipe/releases/download/v5.0.1/methpipe-5.0.1.tar.gz && \
    tar -zxvf methpipe-5.0.1.tar.gz --no-same-owner && \
    cd methpipe-5.0.1 && mkdir -p build && cd build && \
    ../configure --prefix="$(dirname $(pwd))"  && make &&  make install && \
    rm -rf /opt/methpipe-5.0.1.tar.gz
+
+#-----------
+# DNMTOOLS
+# New MethPipe repo - https://github.com/smithlabcode/dnmtools
+# Release 1.2.1
+# * If your HTSlib (or some other library) is not installed system-wide, then you might need to udpate your library path:
+#     $ export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/path/to/htslib/lib
+# * If you installed HTSlib yourself in some non-standard directory, you must specify the location like this:
+#    $ ../configure CPPFLAGS='-I /path/to/htslib/headers' LDFLAGS='-L/path/to/htslib/lib'
+
+RUN mkdir -p /opt && cd /opt && \
+   wget https://github.com/smithlabcode/dnmtools/releases/download/v1.2.1/dnmtools-1.2.1.tar.gz && \
+   tar -zxvf dnmtools-1.2.1.tar.gz --no-same-owner && \
+   cd dnmtools-1.2.1 && mkdir -p build && cd build && \
+   ../configure --prefix="$(dirname $(pwd))"  && make &&  make install && \
+   rm -rf /opt/dnmtools-1.2.1.tar.gz
 
 # ---------
 # Install xvfb & Co for plot.ly (orca)
@@ -96,6 +103,11 @@ RUN apt-get update && apt-get install -y xvfb libgtk2.0-0 libxtst-dev libxss1 gc
 # --------------------------------------------------------
 # Install graphviz to get 'dot' command used for snakemake DAG plots:
 RUN apt-get update && apt-get install -y graphviz
+
+
+# --------------------------------------------------------
+# Install curl
+RUN apt-get update && apt-get install -y curl
 
 # --------------------------------------------------------
 # --------------------------------------------------------
@@ -107,7 +119,12 @@ RUN rm -rf /var/lib/apt/lists/*
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Install mamba
-RUN conda install "mamba>=0.24" -n base -c conda-forge
+# NB: /root/environment.yaml depends on python 3.8
+RUN conda install mamba "python=3.8" -n base -c conda-forge
+#RUN conda install "mamba>=0.24" "python=3.8" -n base -c conda-forge
+
+# resolves module 'lib' has no attribute 'X509_V_FLAG_CB_ISSUER_CHECK' for pip 22.2.2 - 22.3
+RUN pip3 install pyOpenSSL --upgrade
 
 # Install snakemake and other packages
 COPY environment.yaml /root/environment.yaml
@@ -146,4 +163,4 @@ ENTRYPOINT [ "/usr/bin/cmd_wrapper.sh" ]
 # E.g.: Specify 1 or multiple times 'use-source' with script to source, e.g.
 CMD ["use-source", "/opt/conda/.bashrc", "/bin/bash", "-l"]
 
-# todo: update git?
+# XXX: Current git version 2.20.1 is outdated, but is latest available via apt-get
