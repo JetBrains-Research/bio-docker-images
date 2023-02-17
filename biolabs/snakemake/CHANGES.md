@@ -1,3 +1,16 @@
+Version: snakemake7.22.0_conda23.1.0_py38_v1
+---
+Released on 17 Feb 2023
+
+Features:
+    - Conda 23.1.0
+    - Conda packages updated:
+        - snakemake=7.22.0
+        - snakedeploy =0.8.6
+        - pandas =1.5.3
+        - ipython =8.10.0
+      - Replace DNMTools with fixed version, see https://github.com/iromeo/dnmtools/releases/tag/v1.2.2-beta
+
 Version: snakemake7.8.1_conda4.10.3_py38_v1
 ---
 Released on 1 June 2022

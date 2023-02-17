@@ -88,12 +88,14 @@ RUN mkdir -p /opt && cd /opt && \
 # * If you installed HTSlib yourself in some non-standard directory, you must specify the location like this:
 #    $ ../configure CPPFLAGS='-I /path/to/htslib/headers' LDFLAGS='-L/path/to/htslib/lib'
 
+# XXX: update dnmtools after https://github.com/smithlabcode/dnmtools/issues/31 will be resolved
+#  * ...  wget https://github.com/smithlabcode/dnmtools/releases/download/v1.2.1/dnmtools-1.2.1.tar.gz && \ ...
 RUN mkdir -p /opt && cd /opt && \
-   wget https://github.com/smithlabcode/dnmtools/releases/download/v1.2.1/dnmtools-1.2.1.tar.gz && \
-   tar -zxvf dnmtools-1.2.1.tar.gz --no-same-owner && \
-   cd dnmtools-1.2.1 && mkdir -p build && cd build && \
+   wget https://github.com/iromeo/dnmtools/releases/download/v1.2.2-beta/dnmtools-1.2.2-beta.tar.gz && \
+   tar -zxvf dnmtools-1.2.2-beta.tar.gz --no-same-owner && \
+   cd dnmtools-1.2.2-beta && mkdir -p build && cd build && \
    ../configure --prefix="$(dirname $(pwd))"  && make &&  make install && \
-   rm -rf /opt/dnmtools-1.2.1.tar.gz
+   rm -rf /opt/dnmtools-1.2.2-beta.tar.gz
 
 # ---------
 # Install xvfb & Co for plot.ly (orca)
@@ -164,3 +166,9 @@ ENTRYPOINT [ "/usr/bin/cmd_wrapper.sh" ]
 CMD ["use-source", "/opt/conda/.bashrc", "/bin/bash", "-l"]
 
 # XXX: Current git version 2.20.1 is outdated, but is latest available via apt-get
+
+# TODO: watch
+# TODO: CGmapTools, https://cgmaptools.github.io/quick-start/
+# TODO: BS-Seeqer - * [GitHub - khuang28jhu/bs3: BS-Seeker3: An Ultra-fast, Versatile Pipeline for Mapping Bisulfite-treated Reads.](https://github.com/khuang28jhu/bs3/)
+# TODO, wget https://github.com/amplab/snap/releases/download/v2.0.2/snap-aligner
+# https://github.com/amplab/snap/releases
